@@ -45,14 +45,14 @@ function norm(s) { return String(s || '').replace(/\s+/g, '').toLowerCase(); }
 
 /* ---------- 1. 저장소 ---------- */
 const DEFAULT_CATEGORIES = [
-  { name: '식비', kw: ['점심', '저녁', '아침', '식사', '밥', '김밥', '라면', '국밥', '치킨', '피자', '햄버거', '버거', '맥도날드', '롯데리아', '버거킹', '족발', '보쌈', '삼겹살', '고기', '초밥', '스시', '짜장', '짬뽕', '중국집', '분식', '떡볶이', '도시락', '배달', '배민', '쿠팡이츠', '요기요', '식당', '한식', '일식', '중식', '양식', '찌개', '국수', '냉면', '돈까스', '반찬', '장보기', '식료품', '술', '맥주', '소주', '회식', '야식', '샐러드', '쌀국수', '파스타', '마라탕', '만두', '김치찌개', '덮밥', '뷔페'] },
-  { name: '카페/간식', kw: ['커피', '카페', '스타벅스', '스벅', '이디야', '투썸', '메가커피', '메가', '빽다방', '컴포즈', '폴바셋', '라떼', '아메리카노', '음료', '디저트', '케이크', '케익', '빵', '베이커리', '파리바게뜨', '뚜레쥬르', '아이스크림', '배스킨', '간식', '과자', '편의점', 'gs25', 'cu', '세븐일레븐', '도넛', '쿠키', '버블티', '공차', '주스', '쥬스', '스무디', '마카롱'] },
-  { name: '교통', kw: ['택시', '버스', '지하철', '전철', '기차', 'ktx', 'srt', '교통', '주유', '기름', '주차', '톨비', '통행료', '하이패스', '카카오t', '따릉이', '킥보드', '항공', '비행기', '고속버스', '대리'] },
-  { name: '쇼핑', kw: ['쇼핑', '옷', '신발', '가방', '쿠팡', '무신사', '올리브영', '화장품', '백화점', '아울렛', '지마켓', '11번가', '에이블리', '지그재그', '선물', '악세사리', '액세서리', '의류', '바지', '티셔츠', '자라', '유니클로'] },
-  { name: '생활', kw: ['마트', '이마트', '홈플러스', '롯데마트', '코스트코', '다이소', '생활', '휴지', '세제', '관리비', '전기', '가스', '수도', '통신', '핸드폰', '휴대폰', '인터넷', '월세', '세탁', '미용실', '헤어', '이발', '보험', '생필품', '샴푸', '청소'] },
-  { name: '문화/여가', kw: ['영화', 'cgv', '메가박스', '롯데시네마', '넷플릭스', '유튜브', '티빙', '웨이브', '디즈니', '구독', '공연', '콘서트', '뮤지컬', '전시', '책', '도서', '서점', '교보', '게임', '노래방', 'pc방', '피시방', '여행', '숙소', '호텔', '펜션', '운동', '헬스', '필라테스', '요가', '볼링', '골프', '수영', '취미'] },
-  { name: '의료', kw: ['병원', '약국', '약값', '의원', '치과', '한의원', '진료', '검진', '안과', '피부과', '내과', '정형외과', '이비인후과', '감기약', '영양제'] },
-  { name: '기타', kw: [] },
+  { name: '식비', color: 'food', kw: ['점심', '저녁', '아침', '식사', '밥', '김밥', '라면', '국밥', '치킨', '피자', '햄버거', '버거', '맥도날드', '롯데리아', '버거킹', '족발', '보쌈', '삼겹살', '고기', '초밥', '스시', '짜장', '짬뽕', '중국집', '분식', '떡볶이', '도시락', '배달', '배민', '쿠팡이츠', '요기요', '식당', '한식', '일식', '중식', '양식', '찌개', '국수', '냉면', '돈까스', '반찬', '장보기', '식료품', '술', '맥주', '소주', '회식', '야식', '샐러드', '쌀국수', '파스타', '마라탕', '만두', '김치찌개', '덮밥', '뷔페'] },
+  { name: '카페/간식', color: 'cafe', kw: ['커피', '카페', '스타벅스', '스벅', '이디야', '투썸', '메가커피', '메가', '빽다방', '컴포즈', '폴바셋', '라떼', '아메리카노', '음료', '디저트', '케이크', '케익', '빵', '베이커리', '파리바게뜨', '뚜레쥬르', '아이스크림', '배스킨', '간식', '과자', '편의점', 'gs25', 'cu', '세븐일레븐', '도넛', '쿠키', '버블티', '공차', '주스', '쥬스', '스무디', '마카롱'] },
+  { name: '교통', color: 'trans', kw: ['택시', '버스', '지하철', '전철', '기차', 'ktx', 'srt', '교통', '주유', '기름', '주차', '톨비', '통행료', '하이패스', '카카오t', '따릉이', '킥보드', '항공', '비행기', '고속버스', '대리'] },
+  { name: '쇼핑', color: 'shop', kw: ['쇼핑', '옷', '신발', '가방', '쿠팡', '무신사', '올리브영', '화장품', '백화점', '아울렛', '지마켓', '11번가', '에이블리', '지그재그', '선물', '악세사리', '액세서리', '의류', '바지', '티셔츠', '자라', '유니클로'] },
+  { name: '생활', color: 'home', kw: ['마트', '이마트', '홈플러스', '롯데마트', '코스트코', '다이소', '생활', '휴지', '세제', '관리비', '전기', '가스', '수도', '통신', '핸드폰', '휴대폰', '인터넷', '월세', '세탁', '미용실', '헤어', '이발', '보험', '생필품', '샴푸', '청소'] },
+  { name: '문화/여가', color: 'fun', kw: ['영화', 'cgv', '메가박스', '롯데시네마', '넷플릭스', '유튜브', '티빙', '웨이브', '디즈니', '구독', '공연', '콘서트', '뮤지컬', '전시', '책', '도서', '서점', '교보', '게임', '노래방', 'pc방', '피시방', '여행', '숙소', '호텔', '펜션', '운동', '헬스', '필라테스', '요가', '볼링', '골프', '수영', '취미'] },
+  { name: '의료', color: 'health', kw: ['병원', '약국', '약값', '의원', '치과', '한의원', '진료', '검진', '안과', '피부과', '내과', '정형외과', '이비인후과', '감기약', '영양제'] },
+  { name: '기타', color: 'etc', kw: [] },
 ];
 const OTHER = '기타';
 
@@ -72,6 +72,16 @@ const store = {
 let entries = store.get('entries', []);          // [{id, date, item, amount, category}]
 let categories = store.get('categories', null) || JSON.parse(JSON.stringify(DEFAULT_CATEGORIES));
 let learned = store.get('learned', {});          // 직접 고친 항목 → 카테고리 기억
+
+// 카테고리 색 (style.css의 --c-xxx). 직접 추가한 카테고리는 mart → gift 순서로, 그 뒤는 회색
+const DEFAULT_COLOR = { '식비': 'food', '카페/간식': 'cafe', '교통': 'trans', '쇼핑': 'shop',
+  '생활': 'home', '문화/여가': 'fun', '의료': 'health', '기타': 'etc' };
+const SPARE_COLORS = ['mart', 'gift'];
+function nextSpareColor() {
+  const used = new Set(categories.map((c) => c.color));
+  return SPARE_COLORS.find((k) => !used.has(k)) || 'etc';
+}
+categories.forEach((c) => { if (!c.color) c.color = DEFAULT_COLOR[c.name] || nextSpareColor(); });
 
 function saveEntries() { store.set('entries', entries); }
 function saveCategories() { store.set('categories', categories); store.set('learned', learned); }
@@ -233,6 +243,7 @@ const renderers = {
   'view-input': () => renderToday(),
   'view-report': () => renderReport(),
   'view-data': () => { renderSheet(); renderCatManage(); },
+  'view-goal': () => renderGoalScreen(),
 };
 document.querySelectorAll('.tab').forEach((tab) => {
   tab.addEventListener('click', () => {
@@ -398,7 +409,7 @@ function renderPreview() {
     <div class="p-item">
       <div class="p-main">
         <div class="p-name">${esc(p.item)}</div>
-        <div class="p-meta"><span class="chip">${esc(p.category)}</span> ${p.date === todayStr() ? '오늘' : dateLabel(p.date)}</div>
+        <div class="p-meta">${catChip(p.category)} ${p.date === todayStr() ? '오늘' : dateLabel(p.date)}</div>
       </div>
       <div class="p-amount ${p.amount ? '' : 'zero'}">${p.amount ? won(p.amount) : '금액 없음'}</div>
       <button class="p-remove" data-remove="${i}" type="button" aria-label="이 항목 빼기">×</button>
@@ -485,7 +496,7 @@ function renderToday() {
   $('#today-total').textContent = won(list.reduce((s, e) => s + e.amount, 0));
   $('#today-list').innerHTML = list.length ? list.map((e) => `
     <li>
-      <span class="e-name">${esc(e.item)} <span class="chip">${esc(e.category)}</span></span>
+      <span class="e-name">${esc(e.item)} ${catChip(e.category)}</span>
       <span class="e-amount">${won(e.amount)}</span>
       <button class="p-remove" data-del="${e.id}" type="button" aria-label="삭제">×</button>
     </li>`).join('') : `<p class="empty">아직 ${isToday ? '오늘' : '이 날'} 입력한 내역이 없어요</p>`;
@@ -505,13 +516,14 @@ $('#today-list').addEventListener('click', async (e) => {
 /* =========================================================
    화면 2. 리포트
    ========================================================= */
-// 색약인 분도 구분할 수 있게 검증된 순서의 8가지 색 (카테고리 순서대로 고정)
-const PALETTE = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#008300', '#6250d6', '#e34948'];
-const OVERFLOW_COLOR = '#A8A69C';
-function catColor(name) {
-  const i = catNames().indexOf(name);
-  if (name === OTHER) return OVERFLOW_COLOR;
-  return i >= 0 && i < PALETTE.length ? PALETTE[i] : OVERFLOW_COLOR;
+function catKey(name) {
+  const c = categories.find((x) => x.name === name);
+  return c ? c.color : 'etc';
+}
+function catColor(name) { return `var(--c-${catKey(name)})`; }
+function catChip(name) {
+  const k = catKey(name);
+  return `<span class="chip" style="background:var(--c-${k}-bg);color:var(--c-${k}-tx)">${esc(name)}</span>`;
 }
 
 let reportMonth = monthOf(todayStr());
@@ -534,6 +546,7 @@ function renderReport() {
   $('#next-month').disabled = reportMonth >= monthOf(todayStr());
   $('#next-month').style.opacity = $('#next-month').disabled ? 0.35 : 1;
   $('#report-total').textContent = won(total);
+  renderGoalCards(total);
 
   // 지난달과 비교
   const cmp = $('#report-compare');
@@ -552,7 +565,7 @@ function renderReport() {
   const curMap = sumBy(cur), prevMap = sumBy(prev);
   const names = [...new Set([...catNames(), ...Object.keys(curMap), ...Object.keys(prevMap)])];
   const rows = names
-    .map((n) => ({ name: n, amt: curMap[n] || 0, prev: prevMap[n] || 0, color: catColor(n) }))
+    .map((n) => ({ name: n, amt: curMap[n] || 0, prev: prevMap[n] || 0, color: catColor(n), key: catKey(n) }))
     .filter((r) => r.amt || r.prev)
     .sort((a, b) => b.amt - a.amt || b.prev - a.prev);
 
@@ -593,7 +606,7 @@ function renderReport() {
           ${list.map((e) => `
             <li>
               <span class="dot" style="background:${catColor(e.category)}"></span>
-              <span class="e-name">${esc(e.item)} <span class="chip">${esc(e.category)}</span></span>
+              <span class="e-name">${esc(e.item)} ${catChip(e.category)}</span>
               <span class="e-amount">${won(e.amount)}</span>
             </li>`).join('')}
         </ul>
@@ -608,19 +621,19 @@ function renderDonut(rows, total) {
   svg.classList.remove('has-focus');
   const R = 80, W = 26, C = 2 * Math.PI * R;
 
-  // 9번째 이후 카테고리(회색)는 '그 외'로 묶기
+  // 회색(기타 + 색이 모자란 카테고리)은 하나로 묶기
   const segs = [];
   let overflow = 0;
   rows.forEach((r) => {
-    if (r.color === OVERFLOW_COLOR) overflow += r.amt;
+    if (r.key === 'etc') overflow += r.amt;
     else segs.push(r);
   });
   if (overflow) {
-    const onlyOther = rows.filter((r) => r.color === OVERFLOW_COLOR);
-    segs.push({ name: onlyOther.length === 1 ? onlyOther[0].name : '기타·그 외', amt: overflow, color: OVERFLOW_COLOR });
+    const onlyOther = rows.filter((r) => r.key === 'etc');
+    segs.push({ name: onlyOther.length === 1 ? onlyOther[0].name : '기타·그 외', amt: overflow, color: 'var(--c-etc)' });
   }
 
-  let html = `<circle cx="100" cy="100" r="${R}" fill="none" stroke="#F0EEE6" stroke-width="${W}"/>`;
+  let html = `<circle cx="100" cy="100" r="${R}" fill="none" style="stroke:var(--surface)" stroke-width="${W}"/>`;
   if (total > 0) {
     const gap = segs.length > 1 ? 2 : 0;   // 조각 사이 2px 간격
     let offset = 0;
@@ -628,7 +641,7 @@ function renderDonut(rows, total) {
       const len = s.amt / total * C;
       const pct = Math.round(s.amt / total * 100);
       html += `<circle class="seg" data-i="${i}" cx="100" cy="100" r="${R}" fill="none"
-        stroke="${s.color}" stroke-width="${W}"
+        style="stroke:${s.color}" stroke-width="${W}"
         stroke-dasharray="${Math.max(len - gap, 0.01)} ${C}"
         stroke-dashoffset="${-offset}" transform="rotate(-90 100 100)">
         <title>${esc(s.name)} ${pct}% · ${won(s.amt)}</title></circle>`;
@@ -819,7 +832,7 @@ function addCategory(name) {
   if (catNames().includes(name)) return false;
   // '기타'는 항상 맨 뒤에 두기
   const otherIdx = categories.findIndex((c) => c.name === OTHER);
-  const cat = { name, kw: [name] };
+  const cat = { name, color: nextSpareColor(), kw: [name] };
   if (otherIdx >= 0) categories.splice(otherIdx, 0, cat); else categories.push(cat);
   return true;
 }
@@ -947,6 +960,174 @@ $('#import-file').addEventListener('change', async (ev) => {
   sheetMonth = 'all';
   renderSheet(); renderCatManage();
   toast(`${imported.length.toLocaleString()}건을 불러왔어요`);
+});
+
+/* =========================================================
+   화면 4. 지출 목표 (+ 리포트 위 '남은 금액' 카드)
+   ========================================================= */
+let goals = store.get('goals', { month: 0, week: 0 });
+
+// 이번 주 = 월요일 ~ 일요일
+function weekStart(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const w = new Date(y, m - 1, d).getDay();
+  return addDays(dateStr, -((w + 6) % 7));
+}
+function shortDate(dateStr) {
+  const [, m, d] = dateStr.split('-').map(Number);
+  return `${m}/${d}`;
+}
+function daysInMonth(m) {
+  const [y, mo] = m.split('-').map(Number);
+  return new Date(y, mo, 0).getDate();
+}
+function sumBetween(from, to) {
+  return entries.filter((e) => e.date >= from && e.date <= to).reduce((s, e) => s + e.amount, 0);
+}
+function floorTo100(n) { return Math.floor(n / 100) * 100; }
+
+// 카드 하나: 남은 금액을 크게, 퍼센트는 작게
+function goalCardHTML({ title, range, goal, spent, daysLeft, ended }) {
+  const remain = goal - spent;
+  const over = remain < 0;
+  const pct = Math.round(spent / goal * 100);
+  let headline, foot;
+  if (ended) {
+    headline = over ? `${won(-remain)} <small>초과했어요</small>` : `${won(remain)} <small>아꼈어요</small>`;
+    foot = `<span>목표 ${won(goal)}의 <b>${pct}%</b> 썼어요</span>`;
+  } else if (over) {
+    headline = `${won(-remain)} <small>더 썼어요</small>`;
+    foot = `<span>목표 ${won(goal)}을 넘었어요 (${pct}%)</span>`;
+  } else {
+    headline = `${won(remain)} <small>더 쓸 수 있어요</small>`;
+    const perDay = daysLeft > 1 ? `<span>하루 <b>${won(floorTo100(remain / daysLeft))}</b>씩 · ${daysLeft}일</span>` : '<span>오늘이 마지막 날</span>';
+    foot = `<span>목표의 <b>${pct}%</b> 썼어요</span>${perDay}`;
+  }
+  return `
+    <div class="card goal-card ${over ? 'over' : ''}">
+      <div class="goal-head"><span>${title}</span><span class="goal-range">${range}</span></div>
+      <div class="goal-remain">${headline}</div>
+      <div class="goal-meter"><i style="width:${Math.min(pct, 100)}%"></i></div>
+      <div class="goal-foot">${foot}</div>
+    </div>`;
+}
+
+function renderGoalCards(monthTotal) {
+  const box = $('#goal-cards');
+  const t = todayStr();
+  const isCur = reportMonth === monthOf(t);
+  const cards = [];
+
+  if (goals.month) {
+    const dim = daysInMonth(reportMonth);
+    const today = Number(t.slice(8, 10));
+    cards.push(goalCardHTML({
+      title: isCur ? '이번 달 목표' : '이 달 목표',
+      range: `목표 ${won(goals.month)}`,
+      goal: goals.month,
+      spent: monthTotal,
+      daysLeft: dim - today + 1,
+      ended: reportMonth < monthOf(t),
+    }));
+  }
+  if (goals.week && isCur) {
+    const ws = weekStart(t), we = addDays(ws, 6);
+    const dayIdx = (new Date().getDay() + 6) % 7;   // 월=0 … 일=6
+    cards.push(goalCardHTML({
+      title: '이번 주 목표',
+      range: `${shortDate(ws)}(월)~${shortDate(we)}(일)`,
+      goal: goals.week,
+      spent: sumBetween(ws, we),
+      daysLeft: 7 - dayIdx,
+      ended: false,
+    }));
+  }
+  if (!cards.length && isCur) {
+    box.innerHTML = `
+      <div class="card goal-empty">
+        <p>목표를 정하면 앞으로 쓸 수 있는 돈을 알려드려요</p>
+        <button class="btn primary" type="button" data-goto="view-goal">목표 정하기</button>
+      </div>`;
+    return;
+  }
+  box.innerHTML = cards.join('');
+}
+$('#goal-cards').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-goto]');
+  if (b) document.querySelector(`.tab[data-view="${b.dataset.goto}"]`).click();
+});
+
+/* ----- 목표 정하기 화면 ----- */
+const goalMonthInput = $('#goal-month');
+const goalWeekInput = $('#goal-week');
+
+function readMoney(input) {
+  const n = parseKoreanNumber(input.value);
+  return isNaN(n) ? 0 : n;
+}
+function writeMoney(input, n) { input.value = n ? n.toLocaleString('ko-KR') : ''; }
+
+function renderGoalScreen() {
+  const t = todayStr();
+  const m = monthOf(t);
+  const ws = weekStart(t), we = addDays(ws, 6);
+  $('#goal-month-range').textContent = `${monthLabel(m)} 1일 ~ ${daysInMonth(m)}일`;
+  $('#goal-week-range').textContent = `${dateLabel(ws)} ~ ${dateLabel(we)}`;
+  writeMoney(goalMonthInput, goals.month);
+  writeMoney(goalWeekInput, goals.week);
+  updateGoalNow();
+}
+function updateGoalNow() {
+  const t = todayStr();
+  const ws = weekStart(t);
+  const mSpent = sumBetween(monthOf(t) + '-01', monthOf(t) + '-31');
+  const wSpent = sumBetween(ws, addDays(ws, 6));
+  const line = (spent, goal) => {
+    if (!goal) return `지금까지 ${won(spent)} 썼어요`;
+    const r = goal - spent;
+    return r >= 0 ? `지금까지 ${won(spent)} 썼어요 → ${won(r)} 더 쓸 수 있어요`
+      : `지금까지 ${won(spent)} 썼어요 → 목표보다 ${won(-r)} 더 썼어요`;
+  };
+  $('#goal-month-now').textContent = line(mSpent, readMoney(goalMonthInput));
+  $('#goal-week-now').textContent = line(wSpent, readMoney(goalWeekInput));
+}
+
+// 입력하면서 쉼표 넣기
+[goalMonthInput, goalWeekInput].forEach((input) => {
+  input.addEventListener('input', () => {
+    const digits = input.value.replace(/[^\d]/g, '');
+    if (/^[\d,]*$/.test(input.value)) writeMoney(input, Number(digits));
+    updateGoalNow();
+  });
+  input.addEventListener('blur', () => { writeMoney(input, readMoney(input)); updateGoalNow(); });
+});
+
+// +1만 / +5만 / 지우기 버튼
+document.querySelectorAll('#view-goal .chips').forEach((box) => {
+  box.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-add]');
+    if (!b) return;
+    const input = $('#' + box.dataset.target);
+    const add = Number(b.dataset.add);
+    writeMoney(input, add ? readMoney(input) + add : 0);
+    updateGoalNow();
+  });
+});
+
+// 월 목표를 일주일치로 나눠 주 목표 계산 (천 원 단위)
+$('#week-auto').addEventListener('click', () => {
+  const mg = readMoney(goalMonthInput);
+  if (!mg) { toast('먼저 이번 달 목표를 입력해주세요'); goalMonthInput.focus(); return; }
+  const wk = Math.round(mg * 7 / daysInMonth(monthOf(todayStr())) / 1000) * 1000;
+  writeMoney(goalWeekInput, wk);
+  updateGoalNow();
+  toast(`월 목표 기준 주 ${won(wk)}로 계산했어요`);
+});
+
+$('#goal-save').addEventListener('click', () => {
+  goals = { month: readMoney(goalMonthInput), week: readMoney(goalWeekInput) };
+  store.set('goals', goals);
+  toast(goals.month || goals.week ? '목표를 저장했어요. 리포트에서 확인해보세요' : '목표를 지웠어요');
 });
 
 /* ---------- 7. 시작 ---------- */

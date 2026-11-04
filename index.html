@@ -7,7 +7,7 @@
 
   <!-- 홈 화면 앱(PWA) 설정 -->
   <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#FAF9F5">
+  <meta name="theme-color" content="#FAF6F1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -15,6 +15,9 @@
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" href="./icons/icon-192.png">
 
+  <!-- 글꼴: Pretendard (무료) -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -74,6 +77,9 @@
         <h1 id="report-month"></h1>
         <button id="next-month" class="icon-btn" type="button" aria-label="다음 달">▶</button>
       </div>
+
+      <!-- 목표 대비 남은 금액 (화면 4에서 정한 목표 기준) -->
+      <div id="goal-cards"></div>
 
       <div class="card hero">
         <div class="label">이번 달 쓴 돈</div>
@@ -142,6 +148,49 @@
         <input id="import-file" type="file" accept=".csv,text/csv,text/plain" hidden>
       </div>
     </section>
+
+    <!-- ========== 화면 4. 목표 ========== -->
+    <section id="view-goal" class="view" aria-label="목표">
+      <header class="page-header">
+        <h1>지출 목표</h1>
+        <p class="sub">목표를 정하면 리포트에서 앞으로 쓸 수 있는 돈을 알려드려요.</p>
+      </header>
+
+      <div class="card goal-edit">
+        <div class="card-title">이번 달 목표</div>
+        <p class="sub small" id="goal-month-range"></p>
+        <div class="money-input">
+          <input id="goal-month" type="text" inputmode="numeric" placeholder="0" aria-label="이번 달 목표 금액">
+          <span>원</span>
+        </div>
+        <div class="chips" data-target="goal-month">
+          <button type="button" data-add="10000">+1만</button>
+          <button type="button" data-add="50000">+5만</button>
+          <button type="button" data-add="100000">+10만</button>
+          <button type="button" data-add="0" class="chip-clear">지우기</button>
+        </div>
+        <p class="goal-now" id="goal-month-now"></p>
+      </div>
+
+      <div class="card goal-edit">
+        <div class="card-title">이번 주 목표</div>
+        <p class="sub small" id="goal-week-range"></p>
+        <div class="money-input">
+          <input id="goal-week" type="text" inputmode="numeric" placeholder="0" aria-label="이번 주 목표 금액">
+          <span>원</span>
+        </div>
+        <div class="chips" data-target="goal-week">
+          <button type="button" data-add="10000">+1만</button>
+          <button type="button" data-add="50000">+5만</button>
+          <button type="button" id="week-auto" class="chip-auto">월 목표로 계산</button>
+          <button type="button" data-add="0" class="chip-clear">지우기</button>
+        </div>
+        <p class="goal-now" id="goal-week-now"></p>
+      </div>
+
+      <button id="goal-save" class="btn primary block" type="button">목표 저장</button>
+      <p class="sub small center">한 번 정한 목표는 다음 달·다음 주에도 그대로 적용돼요.</p>
+    </section>
   </main>
 
   <!-- 하단 탭 메뉴 -->
@@ -157,6 +206,10 @@
     <button class="tab" data-view="view-data" type="button">
       <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M3.5 14.5h17M9.5 9.5v10"/></svg>
       <span>데이터</span>
+    </button>
+    <button class="tab" data-view="view-goal" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.8"/></svg>
+      <span>목표</span>
     </button>
   </nav>
 
