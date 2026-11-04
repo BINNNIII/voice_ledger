@@ -1174,5 +1174,12 @@ renderToday();
 
 // 오프라인에서도 열리도록 (인터넷 주소로 열었을 때만 동작)
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-  navigator.serviceWorker.register('./sw.js').catch(() => {});
+  navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
+    .then((reg) => {
+      // 앱을 다시 열 때마다 새 버전이 있는지 확인
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') reg.update().catch(() => {});
+      });
+    })
+    .catch(() => {});
 }

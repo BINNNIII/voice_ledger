@@ -1,6 +1,6 @@
 // 오프라인에서도 앱이 열리도록 파일을 보관합니다.
 // 인터넷이 되면 항상 최신 파일을 먼저 받아오므로, 수정한 내용이 바로 반영됩니다.
-const CACHE = 'voice-ledger-v2';
+const CACHE = 'voice-ledger-v3';
 const FONT_CACHE = 'voice-ledger-fonts';
 const FILES = ['./', './index.html', './style.css', './app.js', './manifest.json',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
@@ -26,7 +26,8 @@ self.addEventListener('fetch', (e) => {
   }
   if (!e.request.url.startsWith(self.location.origin)) return;
   e.respondWith(
-    fetch(e.request)
+    // cache: 'no-cache' → 휴대폰에 저장된 예전 파일 대신 항상 서버에 최신인지 확인 (배포 즉시 반영)
+    fetch(e.request, { cache: 'no-cache' })
       .then((res) => {
         const copy = res.clone();
         caches.open(CACHE).then((c) => c.put(e.request, copy));
