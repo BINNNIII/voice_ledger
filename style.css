@@ -30,7 +30,8 @@
   --down: var(--blue-dark); /* 덜 씀: 파랑 */
   --radius: 18px;
   --tabbar-h: 68px;
-  --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --font: "HCR Dotum", "함초롬돋움", "Pretendard Variable", Pretendard,  /* 함초롬돋움이 없는 기기(아이폰)는 Pretendard */
+    -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   --tracking: -0.03em;   /* 자간 -3% */
   color-scheme: light;
 }
@@ -64,7 +65,7 @@ svg text { letter-spacing: var(--tracking); }
 .page-header { padding: 12px 4px 4px; }
 h1 {
   font-family: var(--font);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 28px;
   margin: 0;
 }
@@ -80,9 +81,9 @@ h1 {
   padding: 18px;
   margin-top: 16px;
 }
-.card-title { font-weight: 600; font-size: 18px; margin-bottom: 12px; }
+.card-title { font-weight: 400; font-size: 18px; margin-bottom: 12px; }
 .row-between { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-.amount-strong { font-weight: 700; font-variant-numeric: tabular-nums; }
+.amount-strong { font-weight: 400; font-variant-numeric: tabular-nums; }
 
 /* ===== 버튼 ===== */
 .btn {
@@ -91,7 +92,7 @@ h1 {
   border-radius: 14px;
   border: 1px solid transparent;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
   cursor: pointer;
   transition: background .15s, transform .05s;
 }
@@ -135,7 +136,7 @@ h1 {
   0% { box-shadow: 0 0 0 0 rgba(91, 127, 166, .45); }
   100% { box-shadow: 0 0 0 28px rgba(91, 127, 166, 0); }
 }
-.mic-status { font-size: 20px; font-weight: 600; margin: 18px 0 2px; }
+.mic-status { font-size: 20px; font-weight: 400; margin: 18px 0 2px; }
 .hint { color: var(--muted); font-size: 14px; margin: 0; }
 
 textarea, input[type=text], input[type=search], input[type=number], input[type=date], select {
@@ -161,9 +162,9 @@ textarea:focus, input:focus, select:focus { border-color: var(--accent); backgro
 }
 .p-item:last-child { border-bottom: none; }
 .p-main { flex: 1; min-width: 0; }
-.p-name { font-weight: 600; font-size: 18px; overflow-wrap: anywhere; }
+.p-name { font-weight: 400; font-size: 18px; overflow-wrap: anywhere; }
 .p-meta { color: var(--text-2); font-size: 14px; }
-.p-amount { font-weight: 700; font-size: 20px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.p-amount { font-weight: 400; font-size: 20px; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .p-amount.zero { color: var(--up); }
 .p-remove {
   width: 36px; height: 36px; border-radius: 50%;
@@ -193,7 +194,7 @@ textarea:focus, input:focus, select:focus { border-color: var(--accent); backgro
 }
 .entry-list li:last-child { border-bottom: none; }
 .entry-list .e-name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
-.entry-list .e-amount { font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.entry-list .e-amount { font-weight: 400; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .empty { color: var(--muted); text-align: center; padding: 16px 0; margin: 0; }
 
 /* ===== 화면 2: 리포트 ===== */
@@ -203,11 +204,11 @@ textarea:focus, input:focus, select:focus { border-color: var(--accent); backgro
 .hero-number {
   font-family: var(--font);
   font-size: 44px;
-  font-weight: 700;
+  font-weight: 400;
   font-variant-numeric: tabular-nums;
   margin: 2px 0 6px;
 }
-.compare { font-size: 16px; font-weight: 600; color: var(--text-2); }
+.compare { font-size: 16px; font-weight: 400; color: var(--text-2); }
 .compare.up { color: var(--up); }
 .compare.down { color: var(--down); }
 
@@ -217,7 +218,7 @@ textarea:focus, input:focus, select:focus { border-color: var(--accent); backgro
 #donut.has-focus .seg { opacity: .35; }
 #donut.has-focus .seg.focus { opacity: 1; }
 .donut-center-label { font-size: 12px; fill: var(--text-2); }
-.donut-center-value { font-size: 20px; font-weight: 700; fill: var(--text); }
+.donut-center-value { font-size: 20px; font-weight: 400; fill: var(--text); }
 .donut-tip {
   position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%);
   background: var(--text); color: var(--card);
@@ -230,13 +231,13 @@ textarea:focus, input:focus, select:focus { border-color: var(--accent); backgro
 .cat-list li:last-child { border-bottom: none; }
 .cat-row { display: flex; align-items: center; gap: 10px; }
 .dot { width: 12px; height: 12px; border-radius: 4px; flex-shrink: 0; }
-.cat-name { flex: 1; font-weight: 600; }
+.cat-name { flex: 1; font-weight: 400; }
 .cat-pct { color: var(--text-2); font-size: 14px; width: 44px; text-align: right; font-variant-numeric: tabular-nums; }
-.cat-amt { font-weight: 700; min-width: 92px; text-align: right; font-variant-numeric: tabular-nums; }
+.cat-amt { font-weight: 400; min-width: 92px; text-align: right; font-variant-numeric: tabular-nums; }
 .cat-sub { display: flex; align-items: center; gap: 10px; margin-top: 6px; padding-left: 22px; }
 .bar { flex: 1; height: 6px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
 .bar > i { display: block; height: 100%; border-radius: 4px; }
-.delta { font-size: 14px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.delta { font-size: 14px; font-weight: 400; color: var(--muted); white-space: nowrap; }
 .delta.up { color: var(--up); }
 .delta.down { color: var(--down); }
 
@@ -244,7 +245,7 @@ textarea:focus, input:focus, select:focus { border-color: var(--accent); backgro
 .day-head {
   display: flex; justify-content: space-between;
   padding: 10px 0 4px;
-  color: var(--text-2); font-size: 14px; font-weight: 600;
+  color: var(--text-2); font-size: 14px; font-weight: 400;
   border-bottom: 1px solid var(--border);
 }
 
@@ -272,7 +273,7 @@ select {
   position: sticky; top: 0;
   background: var(--surface-2);
   color: var(--text-2);
-  font-size: 14px; font-weight: 600;
+  font-size: 14px; font-weight: 400;
   text-align: left;
   padding: 10px 8px;
   border-bottom: 1px solid var(--border);
@@ -334,7 +335,7 @@ select {
   border: none; background: none;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
   color: var(--muted);
-  font-size: 12px; font-weight: 600;
+  font-size: 12px; font-weight: 400;
   cursor: pointer;
 }
 .tab svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
@@ -356,7 +357,7 @@ select {
   animation: up .2s ease;
 }
 @keyframes up { from { transform: translateY(20px); opacity: 0; } to { transform: none; opacity: 1; } }
-.dialog-title { font-family: var(--font); font-size: 20px; font-weight: 600; margin-bottom: 6px; }
+.dialog-title { font-family: var(--font); font-size: 20px; font-weight: 400; margin-bottom: 6px; }
 .dialog-msg { color: var(--text-2); white-space: pre-line; }
 .dialog-btns { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
 .dialog-btns .btn { width: 100%; }
@@ -382,7 +383,7 @@ select {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 14px;
-  font-size: 18px; font-weight: 600;
+  font-size: 18px; font-weight: 400;
   cursor: pointer;
 }
 .date-pill::before {
@@ -406,7 +407,7 @@ select {
   display: block;
   margin: 8px auto 0;
   border: none; background: none;
-  color: var(--accent); font-size: 16px; font-weight: 600;
+  color: var(--accent); font-size: 16px; font-weight: 400;
   text-decoration: underline; text-underline-offset: 4px;
   padding: 6px 10px; cursor: pointer;
 }
@@ -414,21 +415,21 @@ select {
 /* ===== 리포트: 목표 대비 남은 금액 ===== */
 .goal-card { padding: 18px 18px 16px; }
 .goal-card + .goal-card { margin-top: 10px; }
-.goal-head { display: flex; justify-content: space-between; align-items: baseline; color: var(--text-2); font-size: 14px; font-weight: 600; }
-.goal-head .goal-range { font-weight: 500; color: var(--muted); font-size: 14px; }
+.goal-head { display: flex; justify-content: space-between; align-items: baseline; color: var(--text-2); font-size: 14px; font-weight: 400; }
+.goal-head .goal-range { font-weight: 400; color: var(--muted); font-size: 14px; }
 .goal-remain {
   font-family: var(--font);
-  font-size: 32px; font-weight: 700;
+  font-size: 32px; font-weight: 400;
   font-variant-numeric: tabular-nums;
   margin: 6px 0 2px;
 }
-.goal-remain small { font-family: var(--font); font-size: 18px; font-weight: 600; color: var(--text-2); margin-left: 2px; }
+.goal-remain small { font-family: var(--font); font-size: 18px; font-weight: 400; color: var(--text-2); margin-left: 2px; }
 .goal-card.over .goal-remain, .goal-card.over .goal-remain small { color: var(--up); }
 .goal-meter { height: 8px; background: var(--surface-2); border-radius: 4px; overflow: hidden; margin: 10px 0 8px; }
 .goal-meter > i { display: block; height: 100%; border-radius: 4px; background: var(--accent); }
 .goal-card.over .goal-meter > i { background: var(--up); }
 .goal-foot { display: flex; justify-content: space-between; gap: 8px; color: var(--text-2); font-size: 14px; }
-.goal-foot b { color: var(--text); font-weight: 700; }
+.goal-foot b { color: var(--text); font-weight: 400; }
 .goal-empty { display: flex; align-items: center; gap: 12px; }
 .goal-empty p { flex: 1; margin: 0; color: var(--text-2); }
 .goal-empty .btn { min-height: 46px; font-size: 16px; padding: 0 16px; }
@@ -445,19 +446,19 @@ select {
   flex: 1; min-width: 0;
   border: none; background: transparent; padding: 0;
   font-family: var(--font);
-  font-size: 36px; font-weight: 700;
+  font-size: 36px; font-weight: 400;
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 .money-input input:focus { background: transparent; }
-.money-input span { font-size: 22px; font-weight: 600; color: var(--text-2); }
+.money-input span { font-size: 22px; font-weight: 400; color: var(--text-2); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .chips button {
   min-height: 42px; padding: 0 14px;
   border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--bg);
-  font-size: 14px; font-weight: 600;
+  font-size: 14px; font-weight: 400;
   cursor: pointer;
 }
 .chips button:active { background: var(--surface-2); }
@@ -469,3 +470,22 @@ select {
 /* ===== 여러 줄이 되는 글만 줄 간격 지정 (짝수) — 나머지는 auto ===== */
 .sub, .dialog-msg, .goal-empty p, .p-name, .e-name { line-height: 24px; }
 .sub.small, .hint, .p-meta, .goal-now, .empty { line-height: 20px; }
+
+/* 모든 글자 같은 굵기 (함초롬돋움 Regular) — 기본으로 굵게 나오는 태그도 통일 */
+b, strong, th, h1, h2, h3, optgroup { font-weight: 400; }
+
+/* ===== 화면 1 — 피그마 "1.메인" 수정 반영 ===== */
+#view-input h1 { font-size: 30px; font-weight: 700; }
+#view-input .date-bar { margin-top: 8px; }
+#view-input .date-bar .icon-btn { width: 40px; height: 40px; font-size: 16px; color: var(--text-sub); }
+#view-input .date-pill:not(.past) { background: transparent; border-color: transparent; }
+#view-input .date-pill { font-size: 15px; }
+.mic-btn { box-shadow: 0 10px 15px rgba(91, 127, 166, .28); }
+#view-input .mic-status { font-size: 20px; }
+#view-input .input-card { border-color: transparent; }
+#view-input .input-card .label { font-size: 14px; }
+#view-input #text-input { height: 78px; font-size: 13px; line-height: 24px; }
+#view-input #text-input::placeholder { color: rgba(117, 117, 117, .6); }
+#view-input #analyze-btn { display: block; width: calc(100% - 30px); margin: 15px auto 0; min-height: 54px; font-size: 18px; }
+#today-list .chip { font-size: 10px; line-height: 20px; height: 20px; padding: 0 13px; vertical-align: 2px; }
+#today-list .p-remove { width: 30px; height: 30px; font-size: 18px; }

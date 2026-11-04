@@ -26,7 +26,7 @@
     <!-- ========== 화면 1. 입력 ========== -->
     <section id="view-input" class="view active" aria-label="입력">
       <header class="page-header">
-        <h1>무엇을 쓰셨나요?</h1>
+        <h1>오늘 무엇을 구매했나요?</h1>
         <div class="date-bar">
           <button id="date-prev" class="icon-btn" type="button" aria-label="전날">◀</button>
           <label class="date-pill" id="date-pill">
@@ -43,11 +43,11 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg>
         </button>
         <p id="mic-status" class="mic-status">버튼을 누르고 말해보세요</p>
-        <p class="hint">예) "스타벅스 커피 4500원, 택시 8천원"</p>
+        <p class="hint">예) 스타벅스 커피 4,500원, 택시 8천원</p>
       </div>
 
       <div class="card input-card">
-        <label for="text-input" class="label">직접 입력 · 키보드의 🎤 받아쓰기도 돼요</label>
+        <label for="text-input" class="label">직접 입력하거나, 키패드 음성인식도 돼요</label>
         <textarea id="text-input" rows="2" placeholder="점심 만이천 원, 커피 4500원"></textarea>
         <button id="analyze-btn" class="btn primary block" type="button">분석하기</button>
       </div>
