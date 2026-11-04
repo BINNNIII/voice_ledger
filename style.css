@@ -478,7 +478,7 @@ b, strong, th, h1, h2, h3, optgroup { font-weight: 400; }
 #view-input h1 { font-size: 30px; font-weight: 700; }
 #view-input .date-bar { margin-top: 8px; }
 #view-input .date-bar .icon-btn { width: 40px; height: 40px; font-size: 16px; color: var(--text-sub); }
-#view-input .date-pill:not(.past) { background: transparent; border-color: transparent; }
+#view-input .date-pill, #view-input .date-pill.past { background: transparent; border-color: transparent; color: var(--text); }  /* 어떤 날짜든 오늘과 같은 모양 */
 #view-input .date-pill { font-size: 15px; }
 .mic-btn { box-shadow: 0 10px 15px rgba(91, 127, 166, .28); }
 #view-input .mic-status { font-size: 20px; }
