@@ -35,7 +35,7 @@
   color-scheme: light;
 }
 
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }  /* 두 번 터치 확대 막기 */
 html, body { margin: 0; padding: 0; }
 body {
   background: var(--bg);

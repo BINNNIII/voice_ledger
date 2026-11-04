@@ -854,11 +854,15 @@ function csvCell(v) {
 }
 
 $('#export-btn').addEventListener('click', async () => {
-  if (!entries.length) { toast('내보낼 내역이 없어요'); return; }
+  const hasGoal = !!(goals.month || goals.week);
+  if (!entries.length && !hasGoal) { toast('내보낼 내역이 없어요'); return; }
   const rows = entries.slice().sort((a, b) => a.date.localeCompare(b.date));
-  const csv = '﻿' + [['날짜', '항목', '금액', '카테고리'],
-    ...rows.map((e) => [e.date, e.item, e.amount, e.category])]
-    .map((r) => r.map(csvCell).join(',')).join('\r\n');
+  // 목표는 표 오른쪽 별도 열(한 칸 띄우고)에 첫 줄에만 적어요 → 엑셀에서 금액 합계가 틀어지지 않게
+  const table = [['날짜', '항목', '금액', '카테고리', '', '월 목표', '주 목표'],
+    ...rows.map((e) => [e.date, e.item, e.amount, e.category])];
+  if (!rows.length) table.push(['', '', '', '']);
+  table[1].push('', goals.month || '', goals.week || '');
+  const csv = '﻿' + table.map((r) => r.map(csvCell).join(',')).join('\r\n');
   const fileName = `가계부_${todayStr().replace(/-/g, '')}.csv`;
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
 
@@ -928,14 +932,29 @@ $('#import-file').addEventListener('change', async (ev) => {
     col = {
       date: find(/날짜|일자|date/, 0), item: find(/항목|내용|내역|item/, 1),
       amount: find(/금액|amount|가격/, 2), category: find(/카테고리|분류|category/, 3),
+      goalMonth: find(/월\s*목표/, -1), goalWeek: find(/주\s*목표/, -1),
     };
     rows.shift();
   }
+
+  // 목표 (있으면 첫 번째 값 사용)
+  const goalFrom = (i) => {
+    if (i < 0) return 0;
+    for (const r of rows) {
+      const n = parseKoreanNumber(String(r[i] || '').replace(/[^\d.,만천백십억]/g, ''));
+      if (!isNaN(n) && n > 0) return n;
+    }
+    return 0;
+  };
+  const fileGoals = { month: goalFrom(col.goalMonth ?? -1), week: goalFrom(col.goalWeek ?? -1) };
+  const hasFileGoals = !!(fileGoals.month || fileGoals.week);
 
   const imported = [];
   let skipped = 0;
   const newCats = new Set();
   rows.forEach((r) => {
+    // 목표만 있고 내역 칸이 빈 줄은 건너뛰기 (오류로 세지 않음)
+    if (![col.date, col.item, col.amount, col.category].some((i) => String(r[i] || '').trim())) return;
     const date = normDate(r[col.date]);
     const amount = parseKoreanNumber(String(r[col.amount] || '').replace(/[^\d.,만천백십억]/g, ''));
     const item = String(r[col.item] || '').trim();
@@ -945,10 +964,14 @@ $('#import-file').addEventListener('change', async (ev) => {
     if (!catNames().includes(category)) newCats.add(category);
     imported.push({ id: newId(), date, item, amount, category });
   });
-  if (!imported.length) { toast('불러올 수 있는 내역이 없어요. 날짜·항목·금액·카테고리 순서인지 확인해주세요.'); return; }
+  if (!imported.length && !hasFileGoals) { toast('불러올 수 있는 내역이 없어요. 날짜·항목·금액·카테고리 순서인지 확인해주세요.'); return; }
 
-  const choice = await showDialog(`${imported.length.toLocaleString()}건을 찾았어요`,
-    (skipped ? `읽을 수 없는 ${skipped}줄은 건너뛰어요.\n` : '') + '어떻게 불러올까요?', [
+  const goalText = hasFileGoals
+    ? `목표도 함께 불러와요 (${[fileGoals.month && `월 ${won(fileGoals.month)}`, fileGoals.week && `주 ${won(fileGoals.week)}`].filter(Boolean).join(' · ')})\n`
+    : '';
+  const choice = await showDialog(
+    imported.length ? `${imported.length.toLocaleString()}건을 찾았어요` : '목표를 찾았어요',
+    goalText + (skipped ? `읽을 수 없는 ${skipped}줄은 건너뛰어요.\n` : '') + '어떻게 불러올까요?', [
       { label: '기존 데이터에 추가하기', value: 'add', style: 'primary' },
       { label: '기존 데이터 지우고 바꾸기', value: 'replace', style: 'danger' },
       { label: '취소', value: null, style: 'secondary' },
@@ -956,10 +979,19 @@ $('#import-file').addEventListener('change', async (ev) => {
   if (!choice) return;
   newCats.forEach((c) => addCategory(c));
   entries = choice === 'replace' ? imported : entries.concat(imported);
+  if (hasFileGoals) {
+    goals = {
+      month: fileGoals.month || (choice === 'replace' ? 0 : goals.month),
+      week: fileGoals.week || (choice === 'replace' ? 0 : goals.week),
+    };
+    store.set('goals', goals);
+  }
   saveEntries(); saveCategories();
   sheetMonth = 'all';
   renderSheet(); renderCatManage();
-  toast(`${imported.length.toLocaleString()}건을 불러왔어요`);
+  toast(hasFileGoals
+    ? `${imported.length.toLocaleString()}건과 목표를 불러왔어요`
+    : `${imported.length.toLocaleString()}건을 불러왔어요`);
 });
 
 /* =========================================================
@@ -1131,6 +1163,13 @@ $('#goal-save').addEventListener('click', () => {
 });
 
 /* ---------- 7. 시작 ---------- */
+// 화면 확대 막기: 두 손가락 벌리기(아이폰 Safari 전용 gesture 이벤트 + 멀티터치)
+['gesturestart', 'gesturechange', 'gestureend'].forEach((t) =>
+  document.addEventListener(t, (e) => e.preventDefault(), { passive: false }));
+document.addEventListener('touchmove', (e) => {
+  if (e.touches.length > 1) e.preventDefault();
+}, { passive: false });
+
 renderToday();
 
 // 오프라인에서도 열리도록 (인터넷 주소로 열었을 때만 동작)
